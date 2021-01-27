@@ -1,0 +1,5 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/" Path="C:\Code\GitHub\Apress.Videos.Performance\TooManyComponents\TooManyComponents\TooManyComponents\bin\Debug\net5.0\wwwroot\" />
+  <ContentRoot BasePath="/" Path="C:\Code\GitHub\Apress.Videos.Performance\TooManyComponents\TooManyComponents\TooManyComponents\obj\Debug\net5.0\scopedcss\bundle\" />
+  <ContentRoot BasePath="_content/BlazorPro.Spinkit" Path="C:\Users\PeterHimschoot\.nuget\packages\blazorpro.spinkit\1.2.0\build\..\staticwebassets\" />
+</StaticWebAssets>

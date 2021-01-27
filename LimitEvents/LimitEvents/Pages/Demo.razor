@@ -1,0 +1,69 @@
+﻿@using Excubo.Blazor.Canvas
+@page "/demo"
+@inject Microsoft.JSInterop.IJSRuntime js;
+
+<h1>Blazor Performance</h1>
+
+<h3>Demo on how to limit frequent events.</h3>
+
+<div id="container">
+  <p id="wrapper">
+    <canvas width="700" height="500" @ref="canvas" @onmousemove="OnMouseMove">
+    </canvas>
+  </p>
+</div>
+<br />
+<p>
+  Events handled: @countMoves
+</p>
+
+@code {
+
+  private ElementReference canvas;
+
+  private int countMoves = 0;
+  private int color = 0;
+
+  private async Task OnMouseMove(MouseEventArgs e)
+  {
+    var mouse_x = e.OffsetX;
+    var mouse_y = e.OffsetY;
+
+    countMoves += 1;
+    await using (var context = await this.js.GetContext2DAsync(canvas))
+    {
+      await context.BeginPathAsync();
+      await context.MoveToAsync(0, 0);
+      await context.LineToAsync(mouse_x, mouse_y);
+      await context.StrokeStyleAsync(colors[color]);
+      color = (color + 1) % colors.Length;
+      await context.StrokeAsync();
+      await context.ClosePathAsync();
+    }
+  }
+
+  private string[] colors = new string[]
+  {
+    "blue",
+    "blue-violet",
+    "auburn",
+    "cadet blue",
+    "chartreuse",
+    "dark goldenrod",
+    "dark cyan",
+    "dark blue",
+    "aqua",
+    "crimson",
+    "cornflower blue",
+    "chocolate",
+    "chartreuse",
+    "green",
+    "dark slate blue",
+    "dark sea green",
+    "dark orchid",
+    "dark orange",
+    "dark magenta",
+    "dark khaki",
+    "dark gray"
+  };
+}

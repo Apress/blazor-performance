@@ -1,0 +1,34 @@
+﻿
+@if (Row != null)
+{
+  <tr class="@Class">
+    <DemoCell Data="@Row.date" Selected="@Selected" Align="left" Title="Date"/>
+    <DemoCell Data="@Row.state" Align="center" Title="State" />
+    <DemoCell Data="@Row.positive" Align="right" />
+    <DemoCell Data="@Row.negative" Align="right" />
+    <DemoCell Data="@Row.hospitalizedCurrently" Align="right" />
+    <DemoCell Data="@Row.hospitalizedCumulative" Align="right" />
+    <DemoCell Data="@Row.death" Align="right" />
+    <DemoCell Data="@Row.totalTestsViral" Align="right" />
+    <DemoCell Data="@Row.positiveTestsViral" Align="right" />
+    <DemoCell Data="@Row.positiveIncrease" Align="right" />
+    <DemoCell Data="@Row.negativeIncrease" Align="right" />
+    <DemoCell Data="@Row.negativeTestsViral" Align="right" />
+  </tr>
+}
+
+@code {
+
+    [Parameter]
+    public DemoData? Row { get; set; }
+
+    [Parameter]
+    public Action? Selected { get; set; }
+
+    [Parameter]
+    public bool IsCurrentRow { get; set; }
+
+    public string Class =>
+      IsCurrentRow ? "table-success" : "";
+
+}

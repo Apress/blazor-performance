@@ -1,0 +1,66 @@
+﻿
+<CascadingValue Value="@selectedCell" IsFixed="true">
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr>
+        <th class="text-left" align="left">D</th>
+        <th class="text-center">S</th>
+        <th class="text-right">P</th>
+        <th class="text-right">H</th>
+        <th class="text-right">H(C)</th>
+        <th class="text-right">H(S)</th>
+        <th class="text-right">D</th>
+        <th class="text-right">T(C)</th>
+        <th class="text-right">P T</th>
+        <th class="text-right">N T</th>
+        <th class="text-right">I +</th>
+        <th class="text-right">I -</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach(var row in DemoData)
+      {
+        <DemoRow Row="@row" 
+                  IsCurrentRow="@(row == selectedRow)"
+                  Selected="@(()=>
+                              {
+                                selectedRow = row;
+                                this.StateHasChanged();
+                              })"
+                  />
+      }
+    </tbody>
+  </table>
+</CascadingValue>
+
+@code {
+
+    public DemoGrid()
+    {
+      selectedCell = new SelectedCell();
+    }
+
+    private SelectedCell selectedCell;
+
+    [Parameter]
+    public DemoData[] DemoData { get; set; }
+
+    private DemoData selectedRow;
+
+    private Stopwatch stopwatch;
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+      Console.WriteLine("Stopwatch started");
+      stopwatch = new Stopwatch();
+      stopwatch.Start();
+      return base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+      base.OnAfterRender(firstRender);
+      stopwatch.Stop();
+      Console.WriteLine($"This took {stopwatch.ElapsedMilliseconds}");
+    }
+}

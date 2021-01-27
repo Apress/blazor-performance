@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "6McdxUWqhuVrqgSo2SpP5r3s/4B9nBPSaUTHEV+xZ423lvuse/HoUZLmTtzRYKa+CaW8nneCpk9+jbT76ltPSg==",
+  "success": true,
+  "projectFilePath": "C:\\Code\\GitHub\\Apress.Videos.Performance\\CountingRenders\\ServiceProxies.LazyLoading\\ServiceProxies.LazyLoading.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\PeterHimschoot\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.0\\microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",
+    "C:\\Users\\PeterHimschoot\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

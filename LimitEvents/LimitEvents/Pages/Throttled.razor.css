@@ -1,0 +1,11 @@
+﻿#container {
+  position: relative;
+  height: 500px;
+}
+
+#wrapper {
+  border: 1px dashed purple;
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+}

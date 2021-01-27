@@ -1,0 +1,58 @@
+﻿@page "/demo"
+
+<h1>Blazor Performance</h1>
+
+<span>Current count = @currentCount</span>
+
+<div>
+  <button @onclick="ShowRenderCount">Show Render Count</button>
+</div>
+
+<div>
+  <button @onclick="IncrementCount">Increment</button>
+</div>
+
+<div>
+  <h3>Simple Counter</h3>
+
+  <SimpleCounter @ref="ComponentRef" CurrentCount="@currentCount" />
+  <SimpleCounter @ref="ComponentRef" CurrentCount="@currentCount" />
+
+</div>
+
+<div>
+  <h3>Counters</h3>
+
+  <Counter @ref="ComponentRef" @bind-CurrentCount="@currentCount"/>
+  <Counter @ref="ComponentRef" @bind-CurrentCount="@currentCount"/>
+</div>
+
+@code {
+  private int currentCount = 0;
+
+      public void IncrementCount()
+      {
+          currentCount += 1;
+      }
+
+      public List<RenderTrackedComponent> counters = new List<RenderTrackedComponent>();
+
+      public RenderTrackedComponent ComponentRef
+      {
+          set
+          {
+              counters.Add(value);
+
+          }
+      }
+
+      public void ShowRenderCount()
+      {
+          foreach (var counter in counters)
+          {
+              counter.WriteRenderCount();
+          }
+      }
+
+}
+

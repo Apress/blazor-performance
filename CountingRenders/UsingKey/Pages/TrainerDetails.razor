@@ -1,0 +1,14 @@
+﻿<div class="trainer">
+  <div class="card">
+    <img src="@Trainer.PictureUrl" />
+    <div>
+      <h2>@Trainer.Name</h2>
+      <span>Likes to @Trainer.Likes</span>
+    </div>
+  </div>
+</div>
+
+@code {
+  [Parameter]
+  public Trainer Trainer { get; set; }
+}

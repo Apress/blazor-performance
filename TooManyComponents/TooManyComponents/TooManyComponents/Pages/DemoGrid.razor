@@ -1,0 +1,107 @@
+﻿
+<table class="table table-sm table-bordered">
+  <thead>
+    <tr>
+      <th class="text-left" align="left">D</th>
+      <th class="text-center">S</th>
+      <th class="text-right">P</th>
+      <th class="text-right">H</th>
+      <th class="text-right">H(C)</th>
+      <th class="text-right">H(S)</th>
+      <th class="text-right">D</th>
+      <th class="text-right">T(C)</th>
+      <th class="text-right">P T</th>
+      <th class="text-right">N T</th>
+      <th class="text-right">I +</th>
+      <th class="text-right">I -</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (int iRow = 0; iRow < DemoData.Length; iRow += 1)
+    {
+      <tr class="@(DemoData[iRow] == selectedRow ? "table-success" : "")">
+        @DemoCell((iRow, 0, DemoData[iRow].date, "center", "state", GetCellClass, RowSelect))
+        @DemoCell((iRow, 1, DemoData[iRow].state, "center", "state", GetCellClass, SingleCellSelect))
+        @DemoCell((iRow, 2, DemoData[iRow].positive, "right", "", GetCellClass, SingleCellSelect))
+        @DemoCell((iRow, 3, DemoData[iRow].negative, "right", "", GetCellClass, SingleCellSelect))
+        @DemoCell((iRow, 4, DemoData[iRow].hospitalizedCurrently, "right", "", GetCellClass, SingleCellSelect))
+        @DemoCell((iRow, 5, DemoData[iRow].hospitalizedCumulative, "right", "", GetCellClass, SingleCellSelect))
+        @DemoCell((iRow, 6, DemoData[iRow].death, "right", "", GetCellClass, SingleCellSelect))
+        @DemoCell((iRow, 7, DemoData[iRow].totalTestsViral, "right", "", GetCellClass, SingleCellSelect))
+        @DemoCell((iRow, 8, DemoData[iRow].positiveTestsViral, "right", "", GetCellClass, SingleCellSelect))
+        @DemoCell((iRow, 9, DemoData[iRow].positiveIncrease, "right", "", GetCellClass, SingleCellSelect))
+        @DemoCell((iRow, 10, DemoData[iRow].negativeIncrease, "right", "", GetCellClass, SingleCellSelect))
+        @DemoCell((iRow, 11, DemoData[iRow].negativeTestsViral, "right", "", GetCellClass, SingleCellSelect))
+      </tr>
+    }
+  </tbody>
+</table>
+
+@code {
+
+  string GetCellClass(int row, int col)
+    => (selectedCell == (row, col)) ? "selected" : "cell";
+
+  void SingleCellSelect(int row, int col)
+  {
+    if (selectedCell != (row, col))
+    {
+      selectedCell = (row, col);
+    }
+  }
+
+  void RowSelect(int row, int col)
+  {
+    if (selectedRow != DemoData[row])
+    {
+      selectedRow = DemoData[row];
+    }
+    SingleCellSelect(row, col);
+  }
+
+  private RenderFragment<(int, int, object?, string, string, Func<int, int, string>, Action<int, int>)> DemoCell { get; set; }
+
+  public DemoGrid()
+  {
+    DemoCell = ((int row, int col, object? data, string align, string title, Func<int, int, string> getClass, Action<int, int> selected) args)
+    => __builder =>
+    {
+    <td class="@args.getClass(args.row, args.col)" title="@args.title" align="@args.align">
+      @if (args.data == null)
+        {
+        <p>N/A</p>
+        }
+        else
+        {
+        <p @onclick="(_)=> args.selected(args.row, args.col)">@args.data</p>
+        }
+    </td>
+    };
+
+    selectedCell = (-1, -1);
+  }
+
+  private (int row, int col) selectedCell;
+
+  [Parameter]
+  public DemoData[] DemoData { get; set; }
+
+  private DemoData selectedRow;
+
+  private Stopwatch stopwatch;
+
+  public override Task SetParametersAsync(ParameterView parameters)
+  {
+    Console.WriteLine("Stopwatch started");
+    stopwatch = new Stopwatch();
+    stopwatch.Start();
+    return base.SetParametersAsync(parameters);
+  }
+
+  protected override void OnAfterRender(bool firstRender)
+  {
+    base.OnAfterRender(firstRender);
+    stopwatch.Stop();
+    Console.WriteLine($"This took {stopwatch.ElapsedMilliseconds}");
+  }
+}

@@ -1,0 +1,54 @@
+﻿@page "/virtual"
+@inject MeasurementsService measurementService
+
+
+@if (measurements == null)
+{
+  <p><em>Loading...</em></p>
+}
+else
+{
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Guid</th>
+        <th>Min</th>
+        <th>Avg</th>
+        <th>Max</th>
+      </tr>
+    </thead>
+    <tbody>
+      <Virtualize Items="@measurements" Context="measurement">
+        <ItemContent>
+          <tr>
+            <td>@measurement.Guid.ToString()</td>
+            <td>@measurement.Min</td>
+            <td>@measurement.Avg</td>
+            <td>@measurement.Max</td>
+          </tr>
+        </ItemContent>
+        <Placeholder>
+          <Loading />
+        </Placeholder>
+      </Virtualize>
+    </tbody>
+  </table>
+}
+
+@code {
+  private List<Measurement> measurements;
+  private Stopwatch timer = new Stopwatch();
+
+  protected override async Task OnInitializedAsync()
+  {
+    measurements = await measurementService.GetMeasurements();
+    timer.Start();
+  }
+
+  protected override void OnAfterRender(bool firstRender)
+  {
+    timer.Stop();
+    Console.WriteLine($"Full rendering took {timer.ElapsedMilliseconds} ms.");
+  }
+
+}

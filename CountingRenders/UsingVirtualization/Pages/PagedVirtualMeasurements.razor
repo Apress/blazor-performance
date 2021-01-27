@@ -1,0 +1,38 @@
+﻿@page "/paged"
+@inject MeasurementsService measurementService
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Guid</th>
+            <th>Min</th>
+            <th>Avg</th>
+            <th>Max</th>
+        </tr>
+    </thead>
+    <tbody>
+      <Virtualize Context="measurement" ItemsProvider="@LoadMeasurements" ItemSize="25" OverscanCount="40">
+        <ItemContent>
+          <tr>
+            <td>@measurement.Guid.ToString()</td>
+            <td>@measurement.Min</td>
+            <td>@measurement.Avg</td>
+            <td>@measurement.Max</td>
+          </tr>
+        </ItemContent>
+        <Placeholder>
+          <Loading/>
+        </Placeholder>
+      </Virtualize>
+    </tbody>
+</table>
+
+@code {
+
+    private async ValueTask<ItemsProviderResult<Measurement>> LoadMeasurements(ItemsProviderRequest request) 
+    {
+      Console.WriteLine($"Fetching row {request.StartIndex}, count {request.Count}");
+      var (measurements, totalItemCount) = await measurementService.GetMeasurementsPage(request.StartIndex, request.Count, request.CancellationToken);
+      return new ItemsProviderResult<Measurement>(measurements, totalItemCount);
+    }
+}

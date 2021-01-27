@@ -1,0 +1,16 @@
+﻿.selected {
+  background-color: yellow;
+}
+
+.cell {
+}
+
+td {
+  padding: 3px;
+}
+
+  td p {
+    margin: 0px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }

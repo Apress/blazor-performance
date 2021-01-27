@@ -1,0 +1,26 @@
+﻿@page "/demo"
+
+@inject DemoService demoService
+
+
+<h3>Some Grid with Data</h3>
+<hr />
+@if (data == null)
+{
+  <Center><Wave/></Center>
+}
+else
+{
+  <DemoGrid DemoData="@data" />
+}
+
+@code {
+
+    [AllowNull]
+    private DemoData[] data;
+
+    protected override async Task OnInitializedAsync()
+    {
+      data = await demoService.GetDemoData();
+    }
+}

@@ -1,0 +1,8 @@
+﻿center {
+  height: 100%;
+}
+
+.v-center {
+  position: absolute;
+  top: 50%;
+}

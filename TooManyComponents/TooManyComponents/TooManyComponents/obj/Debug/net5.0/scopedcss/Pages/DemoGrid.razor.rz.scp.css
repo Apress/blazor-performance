@@ -1,0 +1,16 @@
+.selected[b-2tpimxvavh] {
+  background-color: yellow;
+}
+
+.cell[b-2tpimxvavh] {
+}
+
+td[b-2tpimxvavh] {
+  padding: 3px;
+}
+
+  td p[b-2tpimxvavh] {
+    margin: 0px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }

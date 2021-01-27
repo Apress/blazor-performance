@@ -1,0 +1,38 @@
+@page "/keytrainers"
+@inject TrainerService trainerService
+
+<h1>Use Trainers</h1>
+
+<p>This component demonstrates using &#64;key to limit changes to the render tree.</p>
+
+@if (trainers == null)
+{
+  <p><em>Loading trainers...</em></p>
+}
+else
+{
+  <div class="trainers">
+
+    @foreach (var trainer in trainers)
+    {
+      <TrainerDetails @key="trainer.Id" Trainer="@trainer"/>
+    }
+  </div>
+  <button @onclick="RotateTrainers">Rotate</button>
+}
+
+@code {
+  private List<Trainer> trainers;
+
+  protected override async Task OnInitializedAsync()
+  {
+    trainers = await trainerService.GetTrainers();
+  }
+
+  public void RotateTrainers()
+  {
+    var first = trainers.First();
+    trainers.RemoveAt(0);
+    trainers.Add(first);
+  }
+}

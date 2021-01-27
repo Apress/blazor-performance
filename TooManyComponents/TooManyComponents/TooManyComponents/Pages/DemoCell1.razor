@@ -1,0 +1,66 @@
+﻿<td class="@Class" title="@Title" align="@Align">
+  @if (Data == null)
+  {
+    <p>N/A</p>
+  }
+  else
+  {
+    <p @onclick="Select">@Data</p>
+  }
+</td>
+
+@code {
+
+    //[Parameter(CaptureUnmatchedValues = true)]
+    //public Dictionary<string, object>? Attributes { get; set; }
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Align { get; set; }
+
+    // Used for tracking the current selected cell.
+    // Only one cell can be selected at the same time.
+    [CascadingParameter]
+    public SelectedCell? SelectedCell { get; set; }
+
+    [Parameter]
+    public object? Data { get; set; }
+
+    [Parameter]
+    public Action? Selected { get; set; }
+
+    public void Select(MouseEventArgs e)
+    {
+      // Clicking the same cell twice de-selects it
+      if (SelectedCell!.Current == this)
+      {
+        ClearSelection();
+      }
+      else
+      {
+        SetSelected();
+      }
+      // Tell the row
+      Selected?.Invoke();
+    }
+
+    private void ClearSelection()
+    {
+      this.SelectedCell!.Current = null;
+    }
+
+    private void SetSelected() {
+      this.SelectedCell!.Current = this;
+    }
+
+    public bool IsSelected => SelectedCell!.Current == this;
+
+    public string Class => IsSelected ? "selected" : "cell";
+
+    public void StateHasChanged()
+    {
+      base.StateHasChanged();
+    }
+}

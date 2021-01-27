@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\DemoCell0.razor" />
+    <Content Remove="Pages\DemoCell1.razor" />
+    <Content Remove="Pages\DemoGrid0.razor" />
+    <Content Remove="Pages\DemoGrid1.razor" />
+    <Content Remove="Pages\DemoRow0.razor" />
+    <Content Remove="Pages\DemoRow2.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\DemoCell0.razor.css" />
+    <None Remove="Pages\DemoCell1.razor.css" />
+    <None Remove="Pages\DemoGrid0.razor.css" />
+    <None Remove="Pages\DemoGrid1.razor.css" />
+    <None Remove="Pages\DemoRow0.razor.css" />
+    <None Remove="Pages\DemoRow2.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BlazorPro.Spinkit" Version="1.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0" PrivateAssets="all" />
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>
